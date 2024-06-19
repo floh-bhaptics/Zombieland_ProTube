@@ -10,7 +10,7 @@ using HarmonyLib;
 using System.IO;
 using System.Threading;
 
-[assembly: MelonInfo(typeof(Zombieland_ProTube.Zombieland_ProTube), "Zombieland_ProTube", "1.0.0", "Florian Fahrenberger")]
+[assembly: MelonInfo(typeof(Zombieland_ProTube.Zombieland_ProTube), "Zombieland_ProTube", "1.1.0", "Florian Fahrenberger")]
 [assembly: MelonGame("XR Games", "zombieland_vr_headshot_fever")]
 
 
@@ -65,6 +65,16 @@ namespace Zombieland_ProTube
                     ForceTubeVRInterface.AddToChannel(4, rightHand);
                     ForceTubeVRInterface.AddToChannel(5, leftHand);
                 }
+            }
+            else if (File.Exists(configPath + "lefty.pro"))
+            {
+                MelonLogger.Msg("File for only left channel detected. Player is a lefty.");
+                string leftHand = myChannels.channels.pistol1[0].name;
+                MelonLogger.Msg("Found one ProTube device. Left hand: " + leftHand);
+                ForceTubeVRInterface.ClearChannel(4);
+                ForceTubeVRInterface.ClearChannel(5);
+                // ForceTubeVRInterface.AddToChannel(4, rightHand);
+                ForceTubeVRInterface.AddToChannel(5, leftHand);
             }
         }
 
